@@ -13,12 +13,15 @@
                         <input type="number" step="any" style="width:100px" placeholder="Beta" id="beta" class="form-control mt-5 ms-2">
                     </div>
                     <div>
+                        <input type="number" step="any" style="width:100px" placeholder="Gamma" id="gamma" class="form-control mt-5 ms-2">
+                    </div>
+                    <div>
                         <button class="btn bg-gradient-success mt-5 ms-3" id="hitung" data-category = "{{ $category }}" >Hitung Peramalan</button>
                     </div> 
                 </div>
                 <div class="row">
                     <div class="table-responsive">
-                        <h6>Metode Holt's Exponentian Smoothing</h6>
+                        <h6>Metode Winters Exponentian Smoothing</h6>
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -26,11 +29,14 @@
                                     <th>Nama</th>
                                     <th>Tahun</th>
                                     <th>Produksi</th>
-                                    <th>Level(At)</th>
-                                    <th>Trend(T)</th>
+                                    <th>X(L-t)-Xt</th>
+                                    <th>st</th>
+                                    <th>Bt</th>
+                                    <th>lmt-L</th>
+                                    <th>lmt</th>
                                     <th>Forecast</th>
-                                    <th>Error</th>
-                                    <th>Error2</th>
+                                    <th>error</th>
+                                    <th>error2</th>
                                     <th>Smape</th>
                                 </tr>
                             </thead>
@@ -46,9 +52,12 @@
                                         <td>{{ $val->category->name }}</td>
                                         <td>{{ $val->tahun }}</td>
                                         <td>{{ number_format($val->produksi, 2) }}</td>
-                                        <td>{{  number_format($val->level,2) }}</td>
-                                        <td>{{  number_format($val->trend,2) }}</td>
-                                        <td>{{ number_format($val->forecast,  2)  }}</td>
+                                        <td>{{  number_format($val->xt,2) }}</td>
+                                        <td>{{  number_format($val->st,2) }}</td>
+                                        <td>{{ number_format($val->bt,  2)  }}</td>
+                                        <td>{{  number_format($val->lmt_l,2) }}</td>
+                                        <td>{{  number_format($val->lmt,2) }}</td>
+                                        <td>{{  number_format($val->forecast,2) }}</td>
                                         <td>{{  number_format($val->error,2) }}</td>
                                         <td>{{  number_format($val->error2,2) }}</td>
                                         <td>{{  number_format($val->smape,2) }}</td>
@@ -65,6 +74,10 @@
                         </tr>
                         <tr>
                             <td>Beta</td>
+                            <td>{{ $akurasi->beta ?? 0 }}</td>
+                        </tr>
+                        <tr>
+                            <td>Gamma</td>
                             <td>{{ $akurasi->beta ?? 0 }}</td>
                         </tr>
                         <tr>
@@ -99,8 +112,9 @@
                 var category = $(this).attr('data-category');
                 var alpha = $('#alpha').val();
                 var beta = $('#beta').val();
+                var gamma = $('#gamma').val();
 
-                if(alpha == '' || beta == ''){
+                if(alpha == '' || beta == '' || gamma == ''){
                     Swal.fire({
                         title: "Lengkapi data kosong",
                         icon:'error',
@@ -116,6 +130,7 @@
                         data: {
                             alpha : alpha,
                             beta : beta,
+                            gamma : gamma,
                         },
                         beforeSend:function(){
                             Swal.fire({

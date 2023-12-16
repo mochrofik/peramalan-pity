@@ -92,8 +92,6 @@ class PeramalanHoltsController extends Controller
 
         DB::beginTransaction();
         try {
-            // $category = $category;
-
             $id_categories = '';
             if($category == 'Karet Kering'){
                 $id_categories = Produksi::KARET;
@@ -188,7 +186,7 @@ class PeramalanHoltsController extends Controller
                 $error[$i] = abs($produksi[$i]->jumlah - $forecast[$i]);
             }
             for ($i=2; $i < $jumlah_data; $i++) { 
-                $error2[$i] = abs($error[$i] + $produksi[$i]->jumlah);
+                $error2[$i] = abs($forecast[$i] + $produksi[$i]->jumlah);
                 $smape[$i] = ($error[$i] / $error2[$i])*100;
                 $smape_untuk_upload[$i] = ($error[$i] / $error2[$i])*100;
         
