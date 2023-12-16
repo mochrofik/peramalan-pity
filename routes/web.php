@@ -54,6 +54,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/gulaTebu', [PeramalanHoltsController::class, 'gulaTebu'])->name('.gulaTebu');
     });
     Route::prefix('peramalanWinter')->name('.peramalanWinter')->group(function () {
+        Route::get('/index/{category}', [PeramalanWinterController::class, 'index'])->name('.index');
+        Route::get('/hitungWinter/{category}', [PeramalanWinterController::class, 'hitungWinter'])->name('.hitungWinter');
+        Route::get('/chartWinters/{category}', [PeramalanWinterController::class, 'chartWinters'])->name('.chartWinters');
         Route::get('/karet-kering', [PeramalanWinterController::class, 'karetKering'])->name('.karetKering');
     });
     Route::prefix('peramalan')->name('.peramalan')->group(function () {

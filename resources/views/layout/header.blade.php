@@ -92,7 +92,7 @@
           </div>
         </li>
         <li class="nav-item mt-2">
-          <a data-bs-toggle="collapse" href="#holtES" class="nav-link  border rounded border-primary" href="./pages/dashboard.html">
+          <a data-bs-toggle="collapse" href="#holtES" class="nav-link  border rounded border-primary {{ $nama_route == 'peramalanHolts' ? 'active' : '' }}" href="./pages/dashboard.html">
             <span class="nav-link-text ms-1">Peramalan Holt's ES</span>
           </a>
           <div class="collapse {{ $nama_route == 'peramalanHolts' ? 'show' : '' }}"  id="holtES">
@@ -138,7 +138,7 @@
           <ul class="nav ms-4 ps-2">
             <li class="nav-item">
                 <a class="nav-link"
-                    href="">
+                    href="{{ route('.peramalanWinter.index', 'Karet Kering') }}">
                     <span class="sidenav-normal"> Karet Kering </span>
                 </a>
             </li>

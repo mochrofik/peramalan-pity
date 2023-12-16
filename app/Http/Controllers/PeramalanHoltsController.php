@@ -240,7 +240,7 @@ class PeramalanHoltsController extends Controller
     
                     $holts->save();
             }
-                    AkurasiPeramalan::where('id_categories')
+                    AkurasiPeramalan::where('id_categories', $id_categories)
                     ->where('tipe', 1)->delete();
 
                     $akurasi_peramalan = new AkurasiPeramalan();
