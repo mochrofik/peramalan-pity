@@ -105,6 +105,7 @@ class PeramalanWinterController extends Controller
             //Ambil nilai alpha dan beta
             $alpha = floatval($request->alpha);
             $beta = floatval($request->beta);
+            $gamma = floatval($request->gamma);
     
             $forecast = array();
             $data_produksi = array();
@@ -120,35 +121,41 @@ class PeramalanWinterController extends Controller
                     $data_produksi[$i] = $produksi[$i]->jumlah;
                     $st[$i] = 0;
                     $bt[$i] = 0;
-                    $lmt_l[$i] =0 ;
+                    $lmt[$i] = 0;
                 }
                 for ($i=0; $i < ($jumlah_data + 3); $i++) { 
-                    $lmt[$i] = 0;
+                    $lmt_l[$i] =0 ;
+                    $forecast[$i] = 0;
                 }
                 for ($i=0; $i < 3; $i++) { 
                     //Nilai Xt awal
                     $temp = $produksi[$i+3]->jumlah  - $produksi[$i]->jumlah ;
                     $xt[$i] =  floatval(number_format($temp, 2));
                 }
-                $st[2] =(floatval($produksi[0]->jumlah) + floatval($produksi[1]->jumlah) + floatval($produksi[2]->jumlah)) / 3;
-                $bt[2] = ( number_format(floatval($xt[0]), 2) + number_format(floatval($xt[1]) ,2) +floatval($xt[2]))/pow(3,2);
+                $st[2] = floatval( number_format( ($produksi[0]->jumlah + $produksi[1]->jumlah + $produksi[2]->jumlah) / 3 , 2 )) ;
+                $bt[2] = floatval( number_format( ($xt[0] + $xt[1] +$xt[2])/pow(3,2), 2) ) ;
 
                 for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = $alpha * (floatval($produksi[$i]->jumlah));
+                    $st[$i] = floatval(number_format($alpha * $produksi[$i]->jumlah, 2));
                 }
                 for ($i=0; $i < 3; $i++) { 
-                    $lmt[$i] =  (floatval($produksi[$i]->jumlah) - floatval($st[2]));
+                    $lmt[$i] =  floatval(number_format($produksi[$i]->jumlah - $st[2], 2));
+                }
+                
+                for ($i=3; $i < $jumlah_data; $i++) { 
+                    $lmt_l[$i] =  floatval( number_format($lmt[$i-3], 2) );
+                    $lmt[$i] =  floatval(number_format($gamma * ($produksi[$i]->jumlah - $st[$i]) + (1-$gamma) * $lmt_l[$i] ,2));
+                }
+                for ($i=3; $i < $jumlah_data; $i++) { 
+                    $st[$i] = floatval( number_format($alpha * ($produksi[$i]->jumlah - $lmt_l[$i]) + (1 - $alpha) * ($st[$i-1] + $bt[$i-1]) , 2) );
+                    $bt[$i] = floatval( number_format($beta * ($st[$i] - $st[$i-1]) + (1 - $beta) * $bt[$i-1] , 2) )  ;
+                    $lmt[$i] =  floatval(number_format($gamma * ($produksi[$i]->jumlah - $st[$i]) + (1-$gamma) * $lmt_l[$i] ,2));
+                }
+                
+                for ($i=3; $i < ($jumlah_data) ; $i++) { 
+                    $forecast[$i] = floatval(number_format( $st[$i-1] + $bt[$i-1] + $lmt_l[$i]  ,2));
                 }
                
-                for ($i=3; $i < $jumlah_data; $i++) { 
-                    $lmt_l[$i] =  floatval($lmt[$i-3]);
-                }
-                for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = $alpha * (floatval($produksi[$i]->jumlah) - floatval($lmt_l[$i])) + (1 - $alpha) * (floatval($st[$i-1]) + floatval($bt[$i-1]));
-                }
-                for ($i=3; $i < $jumlah_data; $i++) { 
-                    $bt[$i] = $beta * (floatval($st[$i]) - floatval($st[$i-1])) + (1 - $beta) * floatval($bt[$i-1]);
-                }
 
                 return $result = [
                     'produksi' => $data_produksi,
@@ -157,6 +164,7 @@ class PeramalanWinterController extends Controller
                     'bt' => $bt,
                     'lmt' => $lmt,
                     'lmt_l' => $lmt_l,
+                    'forecast' => $forecast,
                 ];
 
             }else{
