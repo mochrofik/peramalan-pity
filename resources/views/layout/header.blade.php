@@ -31,7 +31,7 @@
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class= " navbar-brand m-0" href=" " target="_blank">
+      <a class= " navbar-brand m-0" href="{{ route('dashboard') }}">
         <span class="ms-1 font-weight-bold">Dashboard</span>
       </a>
     </div>
@@ -137,31 +137,31 @@
           <div class="collapse {{ $nama_route == 'peramalanWinter' ? 'show' : '' }}"  id="winterES">
           <ul class="nav ms-4 ps-2">
             <li class="nav-item">
-                <a class="nav-link {{ \Request::route('category') == 'Karet Kering' ? 'active' : '' }}"
-                    href="{{ route('.peramalanWinter.index', 'Karet Kering') }}">
+                <a class="nav-link {{ \Request::route('category') == '1' ? 'active' : '' }}"
+                    href="{{ route('.peramalanWinter.index', '1') }}">
                     <span class="sidenav-normal"> Karet Kering </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ \Request::route('category') == 'Minyak Sawit' ? 'active' : '' }} "
+                <a class="nav-link {{ \Request::route('category') == '2' ? 'active' : '' }} "
                     href="">
                     <span class="sidenav-normal"> Minyak Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ \Request::route('category') == 'Biji Sawit' ? 'active' : '' }} "
+                <a class="nav-link {{ \Request::route('category') == '3' ? 'active' : '' }} "
                     href="">
                     <span class="sidenav-normal"> Biji Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ \Request::route('category') == 'Teh' ? 'active' : '' }}"
+                <a class="nav-link {{ \Request::route('category') == '4' ? 'active' : '' }}"
                     href="">
                     <span class="sidenav-normal"> Teh </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ \Request::route('category') == 'Gula Tebu' ? 'active' : '' }}"
+                <a class="nav-link {{ \Request::route('category') == '5' ? 'active' : '' }}"
                     href="">
                     <span class="sidenav-normal"> Gula Tebu </span>
                 </a>

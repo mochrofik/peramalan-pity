@@ -4,7 +4,26 @@
     <div class="col-xl-12 col-sm-12 mb-xl-0 mb-4">
         <div class="card">
             <div class="card-body p-3">
-                <h5 class="mt-5 text-center"> Peramalan Produksi {{ $category }}</h5>
+                <h5 class="mt-5 text-center"> Peramalan Produksi @php
+                    if($category == 1){
+                        echo 'Karet Kering';
+                    }
+                    if($category == 2){
+                        echo 'Minyak Sawit';
+
+                    }
+                    if($category == 3){
+                        echo 'Biji Sawit';
+                    }
+                    if($category == 4){
+                        
+                        echo 'Teh';
+                    }
+                    if($category == 5){
+                        echo 'Gula Tebu';
+
+                    }
+                @endphp</h5>
                 <div class="d-flex  d-flex-row justify-content-start">
                     <div>
                         <input type="number" step="any" style="width:100px" placeholder="Alpha" id="alpha" class="form-control mt-5 ms-2">

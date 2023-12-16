@@ -90,22 +90,7 @@ class PeramalanWinterController extends Controller
     public function hitungWinter(Request $request, $category){
         DB::beginTransaction();
         try {
-            $id_categories = '';
-            if($category == 'Karet Kering'){
-                $id_categories = Produksi::KARET;
-            }
-            if($category == 'Minyak Sawit'){
-                $id_categories = Produksi::MINYAK_SAWIT;
-            }
-            if($category == 'Biji Sawit'){
-                $id_categories = Produksi::BIJI_SAWIT;
-            }
-            if($category == 'Teh'){
-                $id_categories = Produksi::TEH;
-            }
-            if($category == 'Gula Tebu'){
-                $id_categories = Produksi::GULA_TEBU;
-            }
+            $id_categories = $category;
     
             if($request->alpha == '' || $request->beta == ''){
                 return response()->json(['
@@ -142,24 +127,27 @@ class PeramalanWinterController extends Controller
                 }
                 for ($i=0; $i < 3; $i++) { 
                     //Nilai Xt awal
-                    $xt[$i] = floatval($produksi[$i+3]->jumlah) -  floatval($produksi[$i]->jumlah);
+                    $temp = $produksi[$i+3]->jumlah  - $produksi[$i]->jumlah ;
+                    $xt[$i] =  floatval(number_format($temp, 2));
                 }
-                $st[2] =($produksi[0]->jumlah + $produksi[1]->jumlah + $produksi[2]->jumlah) / 3;
-                $bt[2] = ($xt[0]+$xt[1]+$xt[2])/pow(3,2);
+                $st[2] =(floatval($produksi[0]->jumlah) + floatval($produksi[1]->jumlah) + floatval($produksi[2]->jumlah)) / 3;
+                $bt[2] = ( number_format(floatval($xt[0]), 2) + number_format(floatval($xt[1]) ,2) +floatval($xt[2]))/pow(3,2);
 
                 for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = $alpha * ($produksi[$i]->jumlah);
+                    $st[$i] = $alpha * (floatval($produksi[$i]->jumlah));
                 }
                 for ($i=0; $i < 3; $i++) { 
-                    $lmt[$i] =  ($produksi[$i]->jumlah - $st[2]);
+                    $lmt[$i] =  (floatval($produksi[$i]->jumlah) - floatval($st[2]));
                 }
                
                 for ($i=3; $i < $jumlah_data; $i++) { 
-                    $lmt_l[$i] =  $lmt[$i-3];
+                    $lmt_l[$i] =  floatval($lmt[$i-3]);
                 }
                 for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = $alpha * ($produksi[$i]->jumlah - $lmt_l[$i]) + (1 - $alpha) * ($st[$i-1] + $bt[$i-1]);
-                    $bt[$i] = $beta * ($produksi[$i]->jumlah - $produksi[$i-1]->jumlah) + (1 - $beta) * $bt[$i-1];
+                    $st[$i] = $alpha * (floatval($produksi[$i]->jumlah) - floatval($lmt_l[$i])) + (1 - $alpha) * (floatval($st[$i-1]) + floatval($bt[$i-1]));
+                }
+                for ($i=3; $i < $jumlah_data; $i++) { 
+                    $bt[$i] = $beta * (floatval($st[$i]) - floatval($st[$i-1])) + (1 - $beta) * floatval($bt[$i-1]);
                 }
 
                 return $result = [
