@@ -248,6 +248,7 @@ class PeramalanHoltsController extends Controller
                     $akurasi_peramalan->tipe = 1;
                     $akurasi_peramalan->alpha = $alpha;
                     $akurasi_peramalan->beta = $beta;
+                    $akurasi_peramalan->gamma = 0;
                     $akurasi_peramalan->rsme = 0;
                     $akurasi_peramalan->smape = $avg_smape;
                     $akurasi_peramalan->akurasi = $akurasi;
