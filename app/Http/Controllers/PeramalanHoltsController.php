@@ -170,7 +170,7 @@ class PeramalanHoltsController extends Controller
             }
             for ($i=2; $i < $jumlah_data ; $i++) { 
                 $level[$i] =  $alpha *  floatval($produksi[$i]->jumlah) + (1 -  $alpha) *( floatval($level[$i-1]) +  floatval($trend[$i-1]));
-                $trend[$i] =  $beta * (  floatval($level[$i]) -  floatval($level[$i-1]) ) + ( 1 - $beta ) *  floatval($trend[$i-1]);
+                $trend[$i] =  $beta * (floatval($level[$i]) -  floatval($level[$i-1]) ) + ( 1 - $beta ) *  floatval($trend[$i-1]);
                 $forecast[$i] = floatval($level[$i-1]) + floatval($trend[$i-1]);
             }
         
@@ -186,13 +186,15 @@ class PeramalanHoltsController extends Controller
             $rmse = 0;
             for ($i=2; $i < $jumlah_data; $i++) { 
                 $error[$i] = abs($produksi[$i]->jumlah - $forecast[$i]);
-                $error2[$i] = abs($error[$i] - $produksi[$i]->jumlah);
+            }
+            for ($i=2; $i < $jumlah_data; $i++) { 
+                $error2[$i] = abs($error[$i] + $produksi[$i]->jumlah);
                 $smape[$i] = ($error[$i] / $error2[$i])*100;
                 $smape_untuk_upload[$i] = ($error[$i] / $error2[$i])*100;
+        
             }
-
-    
-            $avg_smape = array_sum($smape)/count($smape);;
+            
+            $avg_smape = array_sum($smape)/count($smape);
             $akurasi = 100 - $avg_smape;
     
             $peramalan  = [
