@@ -169,6 +169,9 @@ class PeramalanHoltsController extends Controller
             for ($i=2; $i < $jumlah_data ; $i++) { 
                 $level[$i] =  $alpha *  floatval($produksi[$i]->jumlah) + (1 -  $alpha) *( floatval($level[$i-1]) +  floatval($trend[$i-1]));
                 $trend[$i] =  $beta * (floatval($level[$i]) -  floatval($level[$i-1]) ) + ( 1 - $beta ) *  floatval($trend[$i-1]);
+            }
+            for ($i=2; $i < $jumlah_data ; $i++) { 
+                $trend[$i] =  $beta * (floatval($level[$i]) -  floatval($level[$i-1]) ) + ( 1 - $beta ) *  floatval($trend[$i-1]);
                 $forecast[$i] = floatval($level[$i-1]) + floatval($trend[$i-1]);
             }
         
