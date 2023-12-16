@@ -133,21 +133,14 @@ class PeramalanWinterController extends Controller
                     $xt[$i] =  floatval(number_format($temp, 2));
                 }
                 $st[2] = floatval( number_format( ($produksi[0]->jumlah + $produksi[1]->jumlah + $produksi[2]->jumlah) / 3 , 2 )) ;
-                $bt[2] = floatval( number_format( ($xt[0] + $xt[1] +$xt[2])/pow(3,2), 2) ) ;
+                $bt[2] =  ($xt[0] + $xt[1] +$xt[2])/pow(3,2);
 
-                for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = floatval(number_format($alpha * $produksi[$i]->jumlah, 2));
-                }
                 for ($i=0; $i < 3; $i++) { 
                     $lmt[$i] =  floatval(number_format($produksi[$i]->jumlah - $st[2], 2));
                 }
-                
                 for ($i=3; $i < $jumlah_data; $i++) { 
                     $lmt_l[$i] =  floatval( number_format($lmt[$i-3], 2) );
-                    $lmt[$i] =  floatval(number_format($gamma * ($produksi[$i]->jumlah - $st[$i]) + (1-$gamma) * $lmt_l[$i] ,2));
-                }
-                for ($i=3; $i < $jumlah_data; $i++) { 
-                    $st[$i] = floatval( number_format($alpha * ($produksi[$i]->jumlah - $lmt_l[$i]) + (1 - $alpha) * ($st[$i-1] + $bt[$i-1]) , 2) );
+                    $st[$i] = floatval(number_format($alpha * ($produksi[$i]->jumlah - $lmt_l[$i]) + (1-$alpha) * ($st[$i-1] + $bt[$i-1]) , 2));
                     $bt[$i] = floatval( number_format($beta * ($st[$i] - $st[$i-1]) + (1 - $beta) * $bt[$i-1] , 2) )  ;
                     $lmt[$i] =  floatval(number_format($gamma * ($produksi[$i]->jumlah - $st[$i]) + (1-$gamma) * $lmt_l[$i] ,2));
                 }
