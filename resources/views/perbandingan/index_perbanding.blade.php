@@ -81,6 +81,10 @@
 
                         const holts = response['data']['holts'].map(function(item){
                             return item.forecast;
+                            
+                        }) 
+                        const produksi = response['data']['holts'].map(function(item){
+                            return item.produksi;
                         })
                         const tahun = response['data']['holts'].map(function(item){
                             return item.tahun;
@@ -99,14 +103,21 @@
                         labels: tahun,
                         datasets: [
                             {
-                            label: 'Holts Expontial Smoothing',
+                            label: 'Produksi',
+                            data: produksi,
+                            backgroundColor: ["orange"],
+                            borderColor: ["orange"],
+                            borderWidth: 1
+                            },
+                            {
+                            label: 'Holts Exponential Smoothing',
                             data: holts,
                             backgroundColor: ["#d63384"],
                             borderColor: ["#d63384"],
                             borderWidth: 1
                             },
                             {
-                            label: 'Holts Expontial Smoothing',
+                            label: 'Winter Exponential Smoothing',
                             data: winter,
                             borderColor: ["#98ec2d"],
                             backgroundColor: ["#98ec2d"],

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AkurasiPeramalan;
 use App\Models\HoltsES;
 use App\Models\Produksi;
 use App\Models\WinterES;
@@ -44,6 +45,11 @@ class PeramalanController extends Controller
         if($category == '50'){
             $id_categories = Produksi::GULA_TEBU;
         }
+
+        $akurasi_holts = AkurasiPeramalan::where('id_categories', $id_categories)
+        ->where('tipe', 1)->first();
+        $akurasi_winter = AkurasiPeramalan::where('id_categories', $id_categories)
+        ->where('tipe', 2)->first();
 
         return view('perbandingan.index_perbanding',compact('category'));
     }
