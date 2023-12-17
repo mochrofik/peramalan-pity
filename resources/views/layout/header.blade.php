@@ -170,39 +170,39 @@
           </div>
         </li>
         <li class="nav-item mt-2">
-          <a data-bs-toggle="collapse" href="#perbandingan" class="nav-link border rounded border-primary  active" href="./pages/dashboard.html">
+          <a data-bs-toggle="collapse" href="#perbandingan" class="nav-link border rounded border-primary  {{ $nama_route == 'perbandingan' ? 'active' : '' }}" href="./pages/dashboard.html">
             <span class="nav-link-text ms-1 col-2">Perbandingan Hasil <br>
                 Peramalan</span>
           </a>
-          <div class="collapse"  id="perbandingan">
+          <div class="collapse {{ $nama_route == 'perbandingan' ? 'show' : '' }}"  id="perbandingan">
           <ul class="nav ms-4 ps-2">
             <li class="nav-item">
-                <a class="nav-link"
-                    href="">
+                <a class="nav-link {{ \Request::route('category') == '10' ? 'active' : '' }}"
+                    href="{{ route('.perbandingan.index', '10') }}">
                     <span class="sidenav-normal"> Karet Kering </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "
-                    href="">
+                <a class="nav-link {{ \Request::route('category') == '20' ? 'active' : '' }} "
+                    href="{{ route('.perbandingan.index', '20') }}">
                     <span class="sidenav-normal"> Minyak Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "
-                    href="">
+                <a class="nav-link {{ \Request::route('category') == '30' ? 'active' : '' }}"
+                    href="{{ route('.perbandingan.index', '30') }}">
                     <span class="sidenav-normal"> Biji Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "
-                    href="">
+                <a class="nav-link {{ \Request::route('category') == '40' ? 'active' : '' }}"
+                    href="{{ route('.perbandingan.index', '40') }}">
                     <span class="sidenav-normal"> Teh </span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "
-                    href="">
+                <a class="nav-link {{ \Request::route('category') == '50' ? 'active' : '' }}"
+                    href="{{ route('.perbandingan.index', '50') }}">
                     <span class="sidenav-normal"> Gula Tebu </span>
                 </a>
             </li>

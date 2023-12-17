@@ -59,8 +59,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/chartWinters/{category}', [PeramalanWinterController::class, 'chartWinters'])->name('.chartWinters');
         Route::get('/karet-kering', [PeramalanWinterController::class, 'karetKering'])->name('.karetKering');
     });
-    Route::prefix('peramalan')->name('.peramalan')->group(function () {
+    Route::prefix('perbandingan')->name('.perbandingan')->group(function () {
+        Route::get('/index/{category}', [PeramalanController::class, 'index'])->name('.index');
         Route::get('/karet-kering', [PeramalanController::class, 'karetKering'])->name('.karetKering');
+        Route::post('/chartPerbandingan', [PeramalanController::class, 'chartPerbandingan'])->name('.chartPerbandingan');
     });
 });
 
