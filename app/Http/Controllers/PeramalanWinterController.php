@@ -61,19 +61,19 @@ class PeramalanWinterController extends Controller
         $category = $category;
 
         $id_categories = '';
-        if($category == 'Karet Kering'){
+        if($category == '1'){
             $id_categories = Produksi::KARET;
         }
-        if($category == 'Minyak Sawit'){
+        if($category == '2'){
             $id_categories = Produksi::MINYAK_SAWIT;
         }
-        if($category == 'Biji Sawit'){
+        if($category == '3'){
             $id_categories = Produksi::BIJI_SAWIT;
         }
-        if($category == 'Teh'){
+        if($category == '4'){
             $id_categories = Produksi::TEH;
         }
-        if($category == 'Gula Tebu'){
+        if($category == '5'){
             $id_categories = Produksi::GULA_TEBU;
         }
 
