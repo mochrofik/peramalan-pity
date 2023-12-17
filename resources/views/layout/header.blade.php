@@ -144,25 +144,25 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ \Request::route('category') == '2' ? 'active' : '' }} "
-                    href="">
+                    href="{{ route('.peramalanWinter.index', '2') }}">
                     <span class="sidenav-normal"> Minyak Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ \Request::route('category') == '3' ? 'active' : '' }} "
-                    href="">
+                    href="{{ route('.peramalanWinter.index', '3') }}">
                     <span class="sidenav-normal"> Biji Sawit </span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ \Request::route('category') == '4' ? 'active' : '' }}"
-                    href="">
+                    href="{{ route('.peramalanWinter.index', '4') }}">
                     <span class="sidenav-normal"> Teh </span>
                 </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {{ \Request::route('category') == '5' ? 'active' : '' }}"
-                    href="">
+                    href="{{ route('.peramalanWinter.index', '5') }}">
                     <span class="sidenav-normal"> Gula Tebu </span>
                 </a>
             </li>
