@@ -51,7 +51,7 @@ class PeramalanController extends Controller
         $akurasi_winter = AkurasiPeramalan::where('id_categories', $id_categories)
         ->where('tipe', 2)->first();
 
-        return view('perbandingan.index_perbanding',compact('category'));
+        return view('perbandingan.index_perbanding',compact('category', 'akurasi_holts', 'akurasi_winter'));
     }
 
     public function chartPerbandingan(Request $request){
