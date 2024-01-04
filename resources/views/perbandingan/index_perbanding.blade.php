@@ -42,19 +42,19 @@
 
                             <table class="table table-row-bordered" style="width: 200px">
                                 <tr>
-                                <th>Metode Holts</th>
-                                <th>-</th>
-                                <th>Metode Winter</th>
+                                <th class="text-center">Metode Holts</th>
+                                <th class="text-center">-</th>
+                                <th class="text-center">Metode Winter</th>
                             </tr>
                             <tr>
-                                <th>{{ $akurasi_holts->smape ?? 0 }}</th>
-                                <th>SMAPE</th>
-                                <th>{{ $akurasi_winter->smape ?? 0 }}</th>
+                                <th class="text-center">{{ $akurasi_holts->smape ?? 0 }}</th>
+                                <th class="text-center">SMAPE</th>
+                                <th class="text-center">{{ $akurasi_winter->smape ?? 0 }}</th>
                             </tr>
                             <tr>
-                                <th>{{ $akurasi_holts->akurasi ?? 0 }}</th>
-                                <th>Akurasi</th>
-                                <th>{{ $akurasi_winter->akurasi ?? 0 }}</th>
+                                <th class="text-center">{{ $akurasi_holts->akurasi ?? 0 }}</th>
+                                <th class="text-center">Akurasi</th>
+                                <th class="text-center">{{ $akurasi_winter->akurasi ?? 0 }}</th>
                             </tr>
                             </table>
                         </div>

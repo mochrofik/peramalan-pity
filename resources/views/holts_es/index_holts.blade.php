@@ -7,7 +7,7 @@
                 <h5 class="mt-5 text-center"> Peramalan Produksi {{ $category }}</h5>
                 <div class="d-flex  d-flex-row justify-content-start">
                     <div>
-                        <input type="number" step="any" style="width:100px" placeholder="Alpha" id="alpha" class="form-control mt-5 ms-2">
+                        <input type="number" min="0.1" max="0.9" step="any" style="width:100px" placeholder="Alpha" id="alpha" class="form-control mt-5 ms-2">
                     </div>
                     <div>
                         <input type="number" step="any" style="width:100px" placeholder="Beta" id="beta" class="form-control mt-5 ms-2">
@@ -106,6 +106,15 @@
                         icon:'error',
                     })
                 }else{
+
+                var cek = parseFloat(alpha);
+
+                if(cek <= 0 || cek >= 1){
+                    Swal.fire({
+                        title: "Alpha tidak boleh lebih dari 0.9 dan kurang dari 0",
+                        icon:'error',
+                    })
+                }else{
                     var route = "{{ route('.peramalanHolts.hitungHolts', ':category') }}";
                         route = route.replace(':category', category);
     
@@ -151,6 +160,8 @@
                                             }
                         }
                     })
+
+                }
 
                 }
 
